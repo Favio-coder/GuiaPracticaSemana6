@@ -10,8 +10,8 @@ const api = axios.create({
   },
 })
 
-export async function fetchUsers() {
-  const response = await api.get('/users')
+export async function fetchUsers(signal) {
+  const response = await api.get('/users', { signal })
   return response.data
 }
 

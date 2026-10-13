@@ -10,32 +10,31 @@ function List() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    let cancelled = false
+    const controller = new AbortController()
+    const { signal } = controller
 
     async function loadUsers() {
       setLoading(true)
       setError(null)
 
       try {
-        const data = await fetchUsers()
-        if (!cancelled) {
-          setUsers(data)
+        const data = await fetchUsers(signal)
+        setUsers(data)
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          console.log('Petición cancelada por desmontaje del componente')
+          return
         }
-      } catch {
-        if (!cancelled) {
-          setError('Error al cargar los usuarios. Por favor, intente de nuevo.')
-        }
+        setError('Error al cargar los usuarios. Por favor, intente de nuevo.')
       } finally {
-        if (!cancelled) {
-          setLoading(false)
-        }
+        setLoading(false)
       }
     }
 
     loadUsers()
 
     return () => {
-      cancelled = true
+      controller.abort()
     }
   }, [])
 
