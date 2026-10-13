@@ -11,6 +11,7 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/list" element={<List />} />
         <Route path="/usuarios" element={<List />} />
         <Route path="/formulario" element={<Form />} />
         <Route path="*" element={<NotFound />} />
