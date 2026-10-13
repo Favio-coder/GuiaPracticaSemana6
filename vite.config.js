@@ -3,6 +3,6 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/GuiaPracticaSemana06/',
+  base: '/GuiaPracticaSemana6/',
   plugins: [react()],
 })
